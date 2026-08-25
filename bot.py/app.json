@@ -1,0 +1,23 @@
+{
+  "name": "ÆEA Trading Bot",
+  "description": "Quantum-Financial Topology Trading Bot on Telegram",
+  "repository": "https://github.com/yourusername/aea-bot",
+  "keywords": ["trading", "telegram", "quantum", "finance"],
+  "env": {
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "Your Telegram Bot Token from @BotFather",
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+worker: python aea_bot.py
