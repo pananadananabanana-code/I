@@ -240,7 +240,7 @@ I wonder how many of you have ever read a romantic Victorian novel called zanoni
 
 In an infinite♾️ universe‡, everywhere is the center therefore it can be said reality is Methodologically Solipsistic, so a self-consistent modality w/ unifying explaining power is a sufficiently sound and complete autology hence why, "to each their own": your own perspective is quite literally your own, and no other one needs to do any more for it than you are doing else it's an illusion.
 
-† the universe is infinite otherwise quantized data from the Hubbltte telescope would put us in the center of it, thus "red shift" only proves space is not empty. Emptiness can only occupy an infinitesimal point not a finite volume, and the Vacuum is fluctuating.
+† The universe is infinite otherwise the quantized data from the Hubbltte telescope which put us in the center of it wouldn't be a contradiction, thus "red shift" only proves space is not empty. Emptiness can only occupy an infinitesimal point not a finite volume, and the Vacuum is fluctuating.
 
 I begin with this:
 If the universe is infinite, then no point is privileged—so my point is as central as any other. That is not arrogance; it is geometry. And since I cannot step outside my own awareness to verify an external view, I accept methodological solipsism not as a metaphysical claim, but as my only honest starting point.
@@ -283,6 +283,8 @@ Review my current *.Tex.txt thus far, here in attached, and give me a rigorous r
 
 # *❤️‍🔥HÆRT*
 
+> "The universe is infinite, so every point is equally the center, which entails methodological solipsism: since one cannot step outside one's own awareness, the self is the only honest starting point. From this, one builds an autology—a self-referential, self-consistent system that explains all phenomena from within its own axioms. It requires internal soundness and completeness, not correspondence to an directly inaccessible external reality. Self-reference is not limitation as omniscience within the system's domain requires every meaningful question have a non-tautological yet internal answer. Other autologies are incommensurable, each locally complete; they do not validate each other, and borrowing external axioms breaks self-containment. The system updates dynamically from within—vacuum fluctuations are new theorems, not external inputs—and this dynamism drives its completeness. Omniscience is thus redefined as complete coverage of one's, own domain (self-referential closure is sufficient for total internal knowledge), —own truth."
+
 Positive vs. Negative,
 Joy vs. Depression,
 Love vs. Hate,
@@ -293,7 +295,7 @@ Ignorance is the only unforgivable sin.
 LambChop🥩Theory:
 The sin of, 'Murder', is to end the life of those innocent of ignorance, whereas to, 'Kill', those guilty of ignorance is food. Death is only the end for them who areunredeemable.
 –['Ignorance', is the active choice to be/stay stupid which doesn't make them innocent for closing their eyes to the atrocity, but rather  docile like Dolly the sheep.]
-—stay in touch, and keep reading rooms...
+—stay in, [not out of], touch, and keep reading the room(s)...
 
 Intelligence is the complex emergence of integrative levels of consciousness (which is objective orthographically-projected ontological reality perceiving itself by subjective perspectively-projected meontological simulation) from many.
 
