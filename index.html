@@ -785,7 +785,7 @@
     }
 
     // ============================================================
-    // 5. CANVAS SETUP — FIXED
+    // 5. CANVAS SETUP
     // ============================================================
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
@@ -795,7 +795,6 @@
         throw new Error('Canvas 2D not supported');
     }
 
-    // Store dimensions with safe defaults
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
     let dpr = window.devicePixelRatio || 1;
@@ -811,7 +810,6 @@
             canvas.style.width = canvasWidth + 'px';
             canvas.style.height = canvasHeight + 'px';
             
-            // Store for rendering
             canvas._dpr = dpr;
             canvas._width = canvasWidth;
             canvas._height = canvasHeight;
@@ -827,7 +825,6 @@
         }
     }
 
-    // Initial resize with retry
     function ensureCanvasReady() {
         if (!resizeCanvas()) {
             setTimeout(ensureCanvasReady, 100);
@@ -837,7 +834,7 @@
     }
 
     // ============================================================
-    // 6. 3D PROJECTION — FIXED
+    // 6. 3D PROJECTION
     // ============================================================
     function project3D(x, y, z, rotX, rotY, zoom) {
         zoom = zoom || 1;
@@ -891,24 +888,21 @@
     let frameCount = 0;
 
     // ============================================================
-    // 8. MAIN RENDER LOOP — FIXED
+    // 8. MAIN RENDER LOOP
     // ============================================================
     function render() {
         requestAnimationFrame(render);
 
         try {
             if (!paused) {
-                // Ensure canvas dimensions are valid
                 if (!canvas._width || !canvas._height) {
                     resizeCanvas();
                 }
 
-                // Get current dimensions safely
                 const w = canvas._width || canvasWidth || 800;
                 const h = canvas._height || canvasHeight || 600;
                 
                 if (w < 1 || h < 1) {
-                    // Canvas not ready, skip frame
                     frameCount++;
                     return;
                 }
@@ -918,17 +912,14 @@
                 const traj = codex.traj;
                 const mode = codex.mode;
 
-                // Clear with safe dimensions
                 ctx.clearRect(0, 0, w, h);
 
-                // Background
                 const grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w * 0.8);
                 grad.addColorStop(0, '#0a0a20');
                 grad.addColorStop(1, '#050510');
                 ctx.fillStyle = grad;
                 ctx.fillRect(0, 0, w, h);
 
-                // Stars
                 if (!codex._stars) {
                     codex._stars = [];
                     for (let i = 0; i < 250; i++) {
@@ -954,7 +945,6 @@
                     ctx.fill();
                 }
 
-                // CRT Lattice
                 if (mode === 0 || mode === 2) {
                     ctx.strokeStyle = 'rgba(68, 136, 255, 0.08)';
                     ctx.lineWidth = 0.5;
@@ -987,7 +977,6 @@
                     }
                 }
 
-                // Unit sphere wireframe
                 ctx.strokeStyle = 'rgba(50, 100, 150, 0.12)';
                 ctx.lineWidth = 0.5;
                 for (let i = 0; i < 16; i++) {
@@ -1017,7 +1006,6 @@
                     ctx.stroke();
                 }
 
-                // Lingoso Phoneme Grid
                 if (mode === 0 || mode === 2) {
                     for (const phoneme of codex.phonemeGrid) {
                         const pp = project3D(phoneme.x, phoneme.y, phoneme.z, rotX, rotY, zoom);
@@ -1048,7 +1036,6 @@
                     }
                 }
 
-                // s(t) and r(t) traces
                 if (mode === 0 || mode === 4) {
                     const sHist = codex.sHistory;
                     const rHist = codex.rHistory;
@@ -1108,7 +1095,6 @@
                     }
                 }
 
-                // Continued Fraction path
                 if (codex.cfHistory.length > 1 && (mode === 0 || mode === 3)) {
                     const cf = codex.cfHistory;
                     ctx.strokeStyle = 'rgba(68, 255, 200, 0.2)';
@@ -1127,7 +1113,6 @@
                     ctx.stroke();
                 }
 
-                // Zeta function trace
                 if (codex.zetaHistory.length > 1 && (mode === 0 || mode === 3)) {
                     const zeta = codex.zetaHistory;
                     ctx.strokeStyle = 'rgba(68, 200, 255, 0.2)';
@@ -1146,7 +1131,6 @@
                     ctx.stroke();
                 }
 
-                // Lingoso trajectory
                 if (codex.lingosoTraj.length > 1 && (mode === 0 || mode === 2)) {
                     const ling = codex.lingosoTraj;
                     ctx.strokeStyle = 'rgba(255, 102, 170, 0.25)';
@@ -1170,7 +1154,6 @@
                     }
                 }
 
-                // Trajectory path
                 if (traj.length > 1) {
                     for (let i = 1; i < traj.length; i++) {
                         const p0 = project3D(traj[i-1].x, traj[i-1].y, traj[i-1].z, rotX, rotY, zoom);
@@ -1186,7 +1169,6 @@
                     }
                 }
 
-                // Current position
                 const p = project3D(pos.x, pos.y, pos.z, rotX, rotY, zoom);
                 const glowColor = codex.coherent ? 'rgba(0, 255, 136, ' : 'rgba(255, 68, 102, ';
                 const grd = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, 40 * zoom);
@@ -1217,7 +1199,6 @@
                 ctx.fillText('Φ', lp.sx, lp.sy);
                 ctx.shadowBlur = 0;
 
-                // Natalia's Fibrations
                 if (mode === 0 || mode === 2) {
                     const ringScale = (0.3 + codex.eps.toFloat() * 8) * zoom;
                     const ringAlpha = 0.15 + codex.eps.toFloat() * 6;
@@ -1238,7 +1219,6 @@
                     ctx.shadowBlur = 0;
                 }
 
-                // DbZ Branch Indicator
                 if (mode === 0 || mode === 1) {
                     const dbzColor = codex.dbz === 0 ? '#6688aa' : (codex.dbz === 1 ? '#44ddff' : '#ff66aa');
                     const dbzScale = codex.dbz === 0 ? 1 : (codex.dbz === 1 ? 0.7 : 1.3);
@@ -1276,7 +1256,6 @@
                     ctx.shadowBlur = 0;
                 }
 
-                // Observer Field
                 if (mode === 0 || mode === 3) {
                     const obsVal2 = codex.obs.toFloat();
                     const fieldOpacity = 0.03 + obsVal2 * 0.4;
@@ -1328,7 +1307,6 @@
                     ctx.shadowBlur = 0;
                 }
 
-                // 4D Observer Sweep
                 if (mode === 0 || mode === 3) {
                     const grid = codex.obs4D_grid;
                     if (grid.length > 0) {
@@ -1379,7 +1357,6 @@
                     }
                 }
 
-                // ÆEA Market Topology
                 if (mode === 0 || mode === 2) {
                     const marketImbalance = codex.marketImbalance;
                     const marketPulse = 0.1 + 0.5 * (1 - Math.min(1, Math.abs(marketImbalance) / 15));
@@ -1435,7 +1412,6 @@
                     ctx.shadowBlur = 0;
                 }
 
-                // Self-Reference Closure
                 if (mode === 0 || mode === 1) {
                     const closure = codex.selfRefClosure;
                     const closureAngle = codex.time.toFloat() * 0.02;
@@ -1482,7 +1458,6 @@
                     ctx.fillText(`${codex.proofDepth} steps`, w/2, h/2 + 20 * zoom);
                 }
 
-                // Commutator Trace
                 if (mode === 0 || mode === 3) {
                     const commTrace = codex.commutatorTrace.toFloat();
                     const commRad = (0.05 + commTrace * 0.2) * zoom;
@@ -1508,7 +1483,6 @@
                     ctx.shadowBlur = 0;
                 }
 
-                // Update UI
                 coherenceSpan.textContent = codex.coherent ? '✅ COHERENT (s=r)' : '🔄 EVOLVING (s≠r)';
                 coherenceSpan.style.color = codex.coherent ? '#00ff88' : '#ff4466';
                 generationSpan.textContent = codex.gen;
@@ -1548,7 +1522,6 @@
                     proofProgress.style.width = '0%';
                 }
 
-                // On-screen metrics
                 const mY = h - 10;
                 ctx.fillStyle = 'rgba(100, 150, 200, 0.3)';
                 ctx.font = `${10 * zoom}px "Courier New", monospace`;
@@ -1582,19 +1555,17 @@
 
                 frameCount++;
                 if (frameCount % 60 === 0) {
-                    // Console heartbeat
                     console.log(`🔄 Frame ${frameCount} | s/r: ${codex.srRatio.toFloat().toFixed(3)} | coherent: ${codex.coherent}`);
                 }
             }
         } catch (e) {
             showError('Render error: ' + e.message);
             console.error('Render error:', e);
-            // Don't crash, continue next frame
         }
     }
 
     // ============================================================
-    // 9. CONTROLS
+    // 9. CONTROLS & EVENT HANDLERS
     // ============================================================
     canvas.addEventListener('mousedown', (e) => {
         isDragging = true;
@@ -1773,24 +1744,21 @@
     });
 
     // ============================================================
-    // 10. START — FIXED AND ROBUST
+    // 10. INITIALIZATION — ROBUST WITH RETRY
     // ============================================================
     function initializeVisualization() {
         console.log('🚀 Initializing Codex Symbolica v2.2...');
         
-        // Ensure canvas is ready
         if (!ensureCanvasReady()) {
             console.warn('Canvas not ready, retrying...');
             setTimeout(initializeVisualization, 200);
             return;
         }
 
-        // Set initial rotation
         rotX = 0.3;
         rotY = 0.5;
         zoom = 1.0;
 
-        // Seed the state with a few steps
         try {
             codex.step(new Fraction(1, 100));
             codex.step(new Fraction(1, 100));
@@ -1800,7 +1768,6 @@
             console.error('Seed error:', e);
         }
 
-        // Start render loop
         try {
             render();
             console.log('✅ Render loop started successfully');
@@ -1815,7 +1782,6 @@
         hideError();
     }
 
-    // Multiple initialization attempts with increasing delays
     let initAttempts = 0;
     function tryInit() {
         initAttempts++;
@@ -1833,14 +1799,12 @@
         }
     }
 
-    // Start initialization
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(tryInit, 50);
     } else {
         document.addEventListener('DOMContentLoaded', tryInit);
     }
 
-    // Safety fallback: if nothing happens after 5 seconds, force retry
     setTimeout(() => {
         if (!codex._initialized && !errorDisplay.style.display) {
             console.warn('⚠️ No initialization detected, forcing retry...');
@@ -1848,7 +1812,32 @@
         }
     }, 5000);
 
+    // ============================================================
+    // 11. FINAL CONSOLE OUTPUT
+    // ============================================================
     console.log('📋 Codex Symbolica v2.2 loaded. Waiting for initialization...');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(' 𝒜. Primitive Axioms       ✅ S³→S² Hopf Fibration');
+    console.log(' ℬ. Topological Foundations ✅ Natalia\'s Fibrations');
+    console.log(' 𝒞. Number Theoretic Lattice ✅ CRT · CF · Zeta');
+    console.log(' 𝒟. Quantum/Physical Layer  ✅ O[Ψ] Observer Operator');
+    console.log(' ℰ. Logical/Computational   ✅ DbZ Logic Branching');
+    console.log(' ℱ. Lingoso Protocol        ✅ Phoneme Grid Active');
+    console.log(' 𝒢. ÆEA Parity             ✅ δ(m-n-2)=1 Tracking');
+    console.log(' ℋ. BioAetheric Layer      ✅ Self-Reference Closure');
+    console.log(' ᴀ. Feedback Rule           ✅ s(t), r(t) Trajectories');
+    console.log(' ℐ. Symbolic Arithmetic     ✅ Exact Fractions');
+    console.log(' 𝒥. Differential Operators  ✅ 4D Sweep Integration');
+    console.log(' 𝒦. Set/Type Theory        ✅ Commutator Trace');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(' 🎮 Controls: Space=Pause | R=Reset | M=Mode | E=Export');
+    console.log('              S=s(t)/r(t) toggle | +/- = Zoom');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(' 📊 Metrics Display: s², r², Δ, O[Ψ], s/r');
+    console.log(' 🔵 s(t) = Teal trace  |  🟠 r(t) = Gold trace');
+    console.log(' 💜 DbZ Branch Indicator | ⚪ ÆEA δ Condition Ring');
+    console.log(' 🟡 Self-Reference ⊢ Symbol | 📈 Proof Chain Progress');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
 })();
 </script>
